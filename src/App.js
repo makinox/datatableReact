@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from './components/navbar/navbar'
+import Tabla from './components/tabla/tabla'
 import './App.css';
 
 class App extends Component {
@@ -8,12 +9,12 @@ class App extends Component {
       <div className="App">
 
         <header>
-          <Navbar/>
+          <Navbar />
         </header>
 
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className="container">
+          <Tabla />
+        </div>
       </div>
     );
   }

@@ -23,7 +23,7 @@ class Navbarr extends Component {
       <div>
         <Navbar color="light" light expand="md">
           <div className="container">
-            <NavbarBrand href="/">SheetViewer</NavbarBrand>
+            <NavbarBrand href="/">DatatableReact</NavbarBrand>
             {/* <img src={logo} className="App-logo" alt="logo" width="30" height="30"/> */}
             {/* <span className="badge badge-danger">{this.props.counter}</span> */}
             <NavbarToggler onClick={this.toggle} />
