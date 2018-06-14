@@ -15,7 +15,8 @@ class tabla extends Component {
     super(props)
 
     this.state = {
-      data: []
+      data: [],
+      offset: 0
     }
     this.toggleDropDown = this.toggleDropDown.bind(this);
     this.toggleSplit = this.toggleSplit.bind(this);
@@ -57,7 +58,8 @@ class tabla extends Component {
       .then(data => {
         console.log(data)
         this.setState({
-          data
+          data,
+          offsetMethod
         })
       })
       .catch(e => console.log('Paso esto ' + e))
@@ -70,7 +72,7 @@ class tabla extends Component {
     console.log(name)
     // console.log(e.target.html)
     if (name === 'limite'){
-      this.fetchData('users', e.target.value, 0)
+      this.fetchData('users', e.target.value, this.state.offset)
     }
   }
 
