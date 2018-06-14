@@ -18,7 +18,8 @@ class tabla extends Component {
       data: [],
       api: '',
       limit: 0,
-      offset: 0
+      offset: 0,
+      esp: ''
     }
     this.toggleDropDown = this.toggleDropDown.bind(this);
     this.toggleSplit = this.toggleSplit.bind(this);
@@ -65,7 +66,8 @@ class tabla extends Component {
           data: data,
           api: apiMethod,
           limit: limitMethod,
-          offset: offsetMethod
+          offset: offsetMethod,
+          esp: especial
         })
       })
       .catch(e => console.log('Paso esto ' + e))
