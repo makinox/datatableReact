@@ -128,7 +128,7 @@ class tabla extends Component {
         </table>
 
         <div className="row">
-          <div className="col">
+          <div className="ml-3">
             <Pagination aria-label="Page navigation example" className="shadows">
               <PaginationItem disabled>
                 <PaginationLink previous  />
