@@ -2,12 +2,8 @@ import React, { Component } from 'react'
 import './tabla.css'
 import {
   InputGroupAddon,
-  InputGroupButtonDropdown,
   Input,
   Button,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
   Pagination,
   PaginationItem,
   PaginationLink
@@ -23,6 +19,8 @@ class tabla extends Component {
     }
     this.toggleDropDown = this.toggleDropDown.bind(this);
     this.toggleSplit = this.toggleSplit.bind(this);
+    this.fetchData = this.fetchData.bind(this)
+    this.handleInput = this.handleInput.bind(this);
   }
 
   componentDidMount() {
@@ -41,8 +39,8 @@ class tabla extends Component {
     });
   }
 
-  fetchData() {
-    fetch('http://localhost:3001/users/limit=10&offset=0')
+  fetchData(apiMethod = 'users', limitMethod = 10, offsetMethod = 0) {
+    fetch(`http://localhost:3001/${apiMethod}/limit=${limitMethod}&offset=${offsetMethod}`)
       .then(res => res.json())
       .then(parsed => {
         console.log(parsed)
@@ -65,6 +63,13 @@ class tabla extends Component {
       .catch(e => console.log('Paso esto ' + e))
   }
 
+  handleInput(e){
+    const { value } = e.target
+    console.log(value)
+    // console.log(e.target)
+    this.fetchData('users', e.target.value, 0)
+  }
+
   render() {
     const { data } = this.state;
 
@@ -74,23 +79,17 @@ class tabla extends Component {
         <div>
           <div className="row justify-content-between">
 
-            <div className="col col-4">
-              <div className="input-group">
-                <InputGroupButtonDropdown addonType="prepend" isOpen={this.state.splitButtonOpen} toggle={this.toggleSplit}>
-                  <DropdownToggle caret className="shadows">
-                    Datos mostrados
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem >10</DropdownItem>
-                    <DropdownItem>25</DropdownItem>
-                    <DropdownItem>50</DropdownItem>
-                    <DropdownItem>100</DropdownItem>
-                  </DropdownMenu>
-                </InputGroupButtonDropdown>
+            <div className="col col-3">
+              <div className="form-group">
+                <select name="priority" className="form-control shadows" onChange={this.handleInput}>
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                </select>
               </div>
             </div>
 
-            <div className="col col-4">
+            <div className="col col-5">
               <div className="input-group shadows">
                 <InputGroupAddon addonType="prepend"><Button>Buscar</Button></InputGroupAddon>
                 <Input />
@@ -131,7 +130,7 @@ class tabla extends Component {
           <div className="ml-3">
             <Pagination aria-label="Page navigation example" className="shadows">
               <PaginationItem disabled>
-                <PaginationLink previous  />
+                <PaginationLink previous />
               </PaginationItem>
               <PaginationItem >
                 <PaginationLink >
@@ -159,7 +158,7 @@ class tabla extends Component {
             </PaginationLink>
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink next  />
+                <PaginationLink next />
               </PaginationItem>
             </Pagination>
           </div>
