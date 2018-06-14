@@ -64,10 +64,14 @@ class tabla extends Component {
   }
 
   handleInput(e){
-    const { value } = e.target
+    const { value, name } = e.target
     console.log(value)
-    // console.log(e.target)
-    this.fetchData('users', e.target.value, 0)
+    console.log(e.target)
+    console.log(name)
+    // console.log(e.target.html)
+    if (name === 'limite'){
+      this.fetchData('users', e.target.value, 0)
+    }
   }
 
   render() {
@@ -81,7 +85,7 @@ class tabla extends Component {
 
             <div className="col col-3">
               <div className="form-group">
-                <select name="priority" className="form-control shadows" onChange={this.handleInput}>
+                <select name="limite" className="form-control shadows" onChange={this.handleInput}>
                   <option value="10">10</option>
                   <option value="25">25</option>
                   <option value="50">50</option>
