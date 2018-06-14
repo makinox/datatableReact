@@ -59,6 +59,7 @@ class tabla extends Component {
         console.log(data)
         this.setState({
           data,
+          limitMethod,
           offsetMethod
         })
       })
