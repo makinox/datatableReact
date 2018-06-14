@@ -16,6 +16,8 @@ class tabla extends Component {
 
     this.state = {
       data: [],
+      api: '',
+      limit: 0,
       offset: 0
     }
     this.toggleDropDown = this.toggleDropDown.bind(this);
@@ -40,8 +42,10 @@ class tabla extends Component {
     });
   }
 
-  fetchData(apiMethod = 'users', limitMethod = 10, offsetMethod = 0) {
-    fetch(`http://localhost:3001/${apiMethod}/limit=${limitMethod}&offset=${offsetMethod}`)
+  fetchData(apiMethod = 'users', limitMethod = 10, offsetMethod = 0, especial = '') {
+    let queryString = `http://localhost:3001/${apiMethod}/limit=${limitMethod}&offset=${offsetMethod}${especial}`
+    console.log(queryString)
+    fetch(queryString)
       .then(res => res.json())
       .then(parsed => {
         console.log(parsed)
@@ -58,9 +62,10 @@ class tabla extends Component {
       .then(data => {
         console.log(data)
         this.setState({
-          data,
-          limitMethod,
-          offsetMethod
+          data: data,
+          api: apiMethod,
+          limit: limitMethod,
+          offset: offsetMethod
         })
       })
       .catch(e => console.log('Paso esto ' + e))
@@ -73,7 +78,14 @@ class tabla extends Component {
     console.log(name)
     // console.log(e.target.html)
     if (name === 'limite'){
-      this.fetchData('users', e.target.value, this.state.offset)
+      this.fetchData(this.state.api, e.target.value, this.state.offset)
+    } else if (name === 'buscar') {
+      console.log('buscando')
+      if (value){
+        this.fetchData('usersSEARCH', this.state.limit, this.state.offset, `&search=${value}`)
+      } else {
+        this.fetchData('users', this.state.limit, this.state.offset)
+      }
     }
   }
 
@@ -99,7 +111,7 @@ class tabla extends Component {
             <div className="col col-5">
               <div className="input-group shadows">
                 <InputGroupAddon addonType="prepend"><Button>Buscar</Button></InputGroupAddon>
-                <Input />
+                <Input onChange={this.handleInput} name="buscar"/>
               </div>
             </div>
 
