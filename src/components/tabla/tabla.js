@@ -73,17 +73,17 @@ class tabla extends Component {
       .catch(e => console.log('Paso esto ' + e))
   }
 
-  handleInput(e){
+  handleInput(e) {
     const { value, name } = e.target
     console.log(value)
     console.log(e.target)
     console.log(name)
     // console.log(e.target.html)
-    if (name === 'limite'){
+    if (name === 'limite') {
       this.fetchData(this.state.api, e.target.value, this.state.offset)
     } else if (name === 'buscar') {
       console.log('buscando')
-      if (value){
+      if (value) {
         this.fetchData('usersSEARCH', this.state.limit, this.state.offset, `&search=${value}`)
       } else {
         this.fetchData('users', this.state.limit, this.state.offset)
@@ -92,7 +92,7 @@ class tabla extends Component {
   }
 
   render() {
-    const { data } = this.state;
+    const { data, offset } = this.state;
 
 
     return (
@@ -113,7 +113,7 @@ class tabla extends Component {
             <div className="col col-5">
               <div className="input-group shadows">
                 <InputGroupAddon addonType="prepend"><Button>Buscar</Button></InputGroupAddon>
-                <Input onChange={this.handleInput} name="buscar"/>
+                <Input onChange={this.handleInput} name="buscar" />
               </div>
             </div>
 
@@ -155,28 +155,28 @@ class tabla extends Component {
               </PaginationItem>
               <PaginationItem >
                 <PaginationLink >
-                  1
-            </PaginationLink>
+                  {(offset + 10) - 9}
+                </PaginationLink>
               </PaginationItem>
               <PaginationItem>
                 <PaginationLink >
-                  2
-            </PaginationLink>
+                  {(offset + 10) - 8}
+                </PaginationLink>
               </PaginationItem>
               <PaginationItem>
                 <PaginationLink >
-                  3
-            </PaginationLink>
+                  {(offset + 10) - 7}
+                </PaginationLink>
               </PaginationItem>
               <PaginationItem>
                 <PaginationLink >
-                  4
-            </PaginationLink>
+                  {(offset + 10) - 6}
+                </PaginationLink>
               </PaginationItem>
               <PaginationItem>
                 <PaginationLink >
-                  5
-            </PaginationLink>
+                  {(offset + 10) - 5}
+                </PaginationLink>
               </PaginationItem>
               <PaginationItem>
                 <PaginationLink next />
