@@ -75,6 +75,7 @@ class tabla extends Component {
 
   handleInput(e) {
     const { value, name } = e.target
+    console.log(e)
     console.log(value)
     console.log(e.target)
     console.log(name)
@@ -154,27 +155,27 @@ class tabla extends Component {
                 <PaginationLink previous />
               </PaginationItem>
               <PaginationItem >
-                <PaginationLink >
+                <PaginationLink name="numPage" onClick={this.handleInput}>
                   {(offset + 10) - 9}
                 </PaginationLink>
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink >
+                <PaginationLink name="numPage" onClick={this.handleInput}>
                   {(offset + 10) - 8}
                 </PaginationLink>
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink >
+                <PaginationLink name="numPage" onClick={this.handleInput}>
                   {(offset + 10) - 7}
                 </PaginationLink>
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink >
+                <PaginationLink name="numPage" onClick={this.handleInput}>
                   {(offset + 10) - 6}
                 </PaginationLink>
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink >
+                <PaginationLink name="numPage" onClick={this.handleInput}>
                   {(offset + 10) - 5}
                 </PaginationLink>
               </PaginationItem>
