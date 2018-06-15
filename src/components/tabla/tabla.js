@@ -1,13 +1,6 @@
 import React, { Component } from 'react'
 import './tabla.css'
-import {
-  InputGroupAddon,
-  Input,
-  Button,
-  Pagination,
-  PaginationItem,
-  PaginationLink
-} from 'reactstrap';
+import { InputGroupAddon, Input, Button, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 // import axios from 'axios'
 
 class tabla extends Component {
@@ -89,6 +82,18 @@ class tabla extends Component {
       } else {
         this.fetchData('users', this.state.limit, this.state.offset)
       }
+    } else if (name === 'anterior') {
+      // console.log('Paginando')
+      if (this.state.offset > 1 && (parseInt(this.state.offset, 10) - parseInt(this.state.limit, 10)) > 0) {
+        console.log(this.state.offset)
+        console.log((parseInt(this.state.offset, 10) - parseInt(this.state.limit, 10)))
+        this.fetchData(this.state.api, this.state.limit, (parseInt(this.state.offset, 10) - parseInt(this.state.limit, 10)))
+      } else {
+        this.fetchData(this.state.api, this.state.limit, (0))
+      }
+      
+    } else if (name === 'siguiente') {
+      this.fetchData(this.state.api, this.state.limit, (parseInt(this.state.offset, 10) + parseInt(this.state.limit, 10)))
     }
   }
 
@@ -151,36 +156,39 @@ class tabla extends Component {
         <div className="row">
           <div className="ml-3">
             <Pagination aria-label="Page navigation example" className="shadows">
-              <PaginationItem disabled>
-                <PaginationLink previous />
-              </PaginationItem>
               <PaginationItem >
-                <PaginationLink name="numPage" onClick={this.handleInput}>
+                <a className="page-link" name="anterior" value="0" onClick={this.handleInput}>Anterior</a>
+              </PaginationItem>
+              <PaginationLink value={(offset + 10) - 9} name="numPage" >
+                  {(offset + 10) - 9}
+              </PaginationLink>
+              {/* <PaginationItem >
+                <PaginationLink value={(offset + 10) - 9} name="numPage" onClick={this.handleInput}>
                   {(offset + 10) - 9}
                 </PaginationLink>
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink name="numPage" onClick={this.handleInput}>
+                <PaginationLink value={(offset + 10) - 8} name="numPage" onClick={this.handleInput}>
                   {(offset + 10) - 8}
                 </PaginationLink>
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink name="numPage" onClick={this.handleInput}>
+                <PaginationLink value={(offset + 10) - 7} name="numPage" onClick={this.handleInput}>
                   {(offset + 10) - 7}
                 </PaginationLink>
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink name="numPage" onClick={this.handleInput}>
+                <PaginationLink value={(offset + 10) - 6} name="numPage" onClick={this.handleInput}>
                   {(offset + 10) - 6}
                 </PaginationLink>
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink name="numPage" onClick={this.handleInput}>
+                <PaginationLink value={(offset + 10) - 5} name="numPage" onClick={this.handleInput}>
                   {(offset + 10) - 5}
                 </PaginationLink>
-              </PaginationItem>
+              </PaginationItem> */}
               <PaginationItem>
-                <PaginationLink next />
+                <a className="page-link" name="siguiente" value="0" onClick={this.handleInput}>Siguiente</a>
               </PaginationItem>
             </Pagination>
           </div>
