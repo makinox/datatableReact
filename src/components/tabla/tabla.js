@@ -68,15 +68,17 @@ class tabla extends Component {
 
   handleInput(e) {
     const { value, name } = e.target
+    console.log('\n <-- ################ --> \n ')
     console.log(e)
     console.log(value)
     console.log(e.target)
     console.log(name)
-    
+    console.log('\n <-- ################ --> \n ')
+
     // Si se clicko limite sus valores son 10, 25, 50
     if (name === 'limite') {
       this.fetchData(this.state.api, e.target.value, this.state.offset)
-      
+
       // Si se entro a buscar y se entro una letra
     } else if (name === 'buscar') {
 
@@ -91,7 +93,7 @@ class tabla extends Component {
 
       // Si se clicka en el boton (Anterior)
     } else if (name === 'anterior') {
-      
+
       // Si hay registros anteriores en la pagina dada y su valor es mayor a cero
       if (this.state.offset > 1 && (parseInt(this.state.offset, 10) - parseInt(this.state.limit, 10)) > 0) {
         this.fetchData(this.state.api, this.state.limit, (parseInt(this.state.offset, 10) - parseInt(this.state.limit, 10)))
@@ -100,15 +102,20 @@ class tabla extends Component {
       } else {
         this.fetchData(this.state.api, this.state.limit, (0))
       }
-      
+
       //Si se clicka en el boton (siguiente)
     } else if (name === 'siguiente') {
       this.fetchData(this.state.api, this.state.limit, (parseInt(this.state.offset, 10) + parseInt(this.state.limit, 10)))
     } else if (name === 'numPage') {
       console.log('numeros!!')
       console.log((value * 10) - 10)
-      if (((value * 10) - 10) === this.state.offset){
+      // Si se llama a la pagina actual
+      if (((value * 10) - 10) === this.state.offset) {
         console.log('No hacer nada porque ya esta cacheado :)')
+      } else {
+        console.log('LLamando a la nueva')
+
+        this.fetchData(this.state.api, this.state.limit, ((value * 10) - 10))
       }
     }
   }
@@ -116,6 +123,24 @@ class tabla extends Component {
   render() {
     const { data, offset } = this.state;
 
+    let pageCero
+    let pageLast
+
+    if (offset > 0) {
+      pageCero =
+        <PaginationItem>
+          <PaginationLink value={Math.ceil((offset) / 10)} name="numPage" onClick={this.handleInput}>
+            {Math.ceil((offset) / 10)}
+          </PaginationLink>
+        </PaginationItem>
+    } else {
+      pageLast =
+        <PaginationItem >
+          <PaginationLink value={Math.ceil((offset + 30) / 10)} name="numPage" onClick={this.handleInput}>
+            {Math.ceil((offset + 30) / 10)}
+          </PaginationLink>
+        </PaginationItem>
+    }
 
     return (
       <div>
@@ -172,40 +197,31 @@ class tabla extends Component {
         <div className="row">
           <div className="ml-3">
             <Pagination aria-label="Page navigation example" className="shadows">
+
               <PaginationItem >
                 <a className="page-link" name="anterior" value="0" onClick={this.handleInput}>Anterior</a>
               </PaginationItem>
-              <PaginationLink value={(offset + 10) / 10} name="numPage" onClick={this.handleInput}>
-                  {(offset + 10) / 10}
-              </PaginationLink>
-              {/* <PaginationItem >
-                <PaginationLink value={(offset + 10) - 9} name="numPage" onClick={this.handleInput}>
-                  {(offset + 10) - 9}
+
+              {pageCero}
+
+              <PaginationItem active>
+                <PaginationLink value={Math.ceil((offset + 10) / 10)} name="numPage" onClick={this.handleInput} >
+                  {Math.ceil((offset + 10) / 10)}
                 </PaginationLink>
               </PaginationItem>
+
               <PaginationItem>
-                <PaginationLink value={(offset + 10) - 8} name="numPage" onClick={this.handleInput}>
-                  {(offset + 10) - 8}
+                <PaginationLink value={Math.ceil((offset + 20) / 10)} name="numPage" onClick={this.handleInput}>
+                  {Math.ceil((offset + 20) / 10)}
                 </PaginationLink>
               </PaginationItem>
-              <PaginationItem>
-                <PaginationLink value={(offset + 10) - 7} name="numPage" onClick={this.handleInput}>
-                  {(offset + 10) - 7}
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink value={(offset + 10) - 6} name="numPage" onClick={this.handleInput}>
-                  {(offset + 10) - 6}
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink value={(offset + 10) - 5} name="numPage" onClick={this.handleInput}>
-                  {(offset + 10) - 5}
-                </PaginationLink>
-              </PaginationItem> */}
+
+              {pageLast}
+
               <PaginationItem>
                 <a className="page-link" name="siguiente" value="0" onClick={this.handleInput}>Siguiente</a>
               </PaginationItem>
+              
             </Pagination>
           </div>
         </div>
