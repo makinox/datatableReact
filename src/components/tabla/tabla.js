@@ -54,7 +54,7 @@ class tabla extends Component {
         ))
       })
       .then(data => {
-        console.log(data)
+        // console.log(data)
         this.setState({
           data: data,
           api: apiMethod,
@@ -169,8 +169,8 @@ class tabla extends Component {
               <PaginationItem >
                 <a className="page-link" name="anterior" value="0" onClick={this.handleInput}>Anterior</a>
               </PaginationItem>
-              <PaginationLink value={(offset + 10) - 9} name="numPage" >
-                  {(offset + 10) - 9}
+              <PaginationLink value={(offset + 10) / 10} name="numPage" >
+                  {(offset + 10) / 10}
               </PaginationLink>
               {/* <PaginationItem >
                 <PaginationLink value={(offset + 10) - 9} name="numPage" onClick={this.handleInput}>
