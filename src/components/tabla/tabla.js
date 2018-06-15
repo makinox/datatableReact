@@ -104,6 +104,12 @@ class tabla extends Component {
       //Si se clicka en el boton (siguiente)
     } else if (name === 'siguiente') {
       this.fetchData(this.state.api, this.state.limit, (parseInt(this.state.offset, 10) + parseInt(this.state.limit, 10)))
+    } else if (name === 'numPage') {
+      console.log('numeros!!')
+      console.log((value * 10) - 10)
+      if (((value * 10) - 10) === this.state.offset){
+        console.log('No hacer nada porque ya esta cacheado :)')
+      }
     }
   }
 
@@ -169,7 +175,7 @@ class tabla extends Component {
               <PaginationItem >
                 <a className="page-link" name="anterior" value="0" onClick={this.handleInput}>Anterior</a>
               </PaginationItem>
-              <PaginationLink value={(offset + 10) / 10} name="numPage" >
+              <PaginationLink value={(offset + 10) / 10} name="numPage" onClick={this.handleInput}>
                   {(offset + 10) / 10}
               </PaginationLink>
               {/* <PaginationItem >
