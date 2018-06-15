@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './tabla.css'
-import { InputGroupAddon, Input, Button, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { InputGroupAddon, Input, Button, Pagination, PaginationItem, PaginationLink } from 'reactstrap'
 // import axios from 'axios'
 
 class tabla extends Component {
@@ -12,12 +12,14 @@ class tabla extends Component {
       api: '',
       limit: 0,
       offset: 0,
-      esp: ''
+      esp: '',
+      reverse: false
     }
-    this.toggleDropDown = this.toggleDropDown.bind(this);
-    this.toggleSplit = this.toggleSplit.bind(this);
+    this.toggleDropDown = this.toggleDropDown.bind(this)
+    this.toggleSplit = this.toggleSplit.bind(this)
     this.fetchData = this.fetchData.bind(this)
-    this.handleInput = this.handleInput.bind(this);
+    this.handleInput = this.handleInput.bind(this)
+    this.handleOrder = this.handleOrder.bind(this)
   }
 
   componentDidMount() {
@@ -27,13 +29,13 @@ class tabla extends Component {
   toggleDropDown() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
-    });
+    })
   }
 
   toggleSplit() {
     this.setState({
       splitButtonOpen: !this.state.splitButtonOpen
-    });
+    })
   }
 
   fetchData(apiMethod = 'users', limitMethod = 10, offsetMethod = 0, especial = '') {
@@ -68,12 +70,12 @@ class tabla extends Component {
 
   handleInput(e) {
     const { value, name } = e.target
-    console.log('\n <-- ################ --> \n ')
-    console.log(e)
-    console.log(value)
-    console.log(e.target)
-    console.log(name)
-    console.log('\n <-- ################ --> \n ')
+    // console.log('\n <-- ################ --> \n ')
+    // console.log(e)
+    // console.log(value)
+    // console.log(e.target)
+    // console.log(name)
+    // console.log('\n <-- ################ --> \n ')
 
     // Si se clicko limite sus valores son 10, 25, 50
     if (name === 'limite') {
@@ -125,8 +127,172 @@ class tabla extends Component {
     }
   }
 
+  handleOrder(e) {
+    const { names, value, scope, className } = e.target
+
+    console.log(e)
+    console.log(e.target)
+    console.log(names)
+    console.log(value)
+    console.log(scope)
+    console.log(className)
+    console.log(this.state.data)
+
+    if (className === 'id'){
+      console.log('Entro a id')
+      this.setState({
+        data: this.state.data.sort().reverse()
+      })
+    } else if (className === 'name') {
+
+      if (this.state.reverse) {
+        this.setState({
+          data: this.state.data
+            .sort((a, b) => {
+              let nameB = b.nombre.toUpperCase()
+              let nameA = a.nombre.toUpperCase()
+              if (nameA < nameB) {
+                return -1
+              }
+              if (nameA > nameB) {
+                return 1
+              }
+              return 0
+            }),
+          reverse: false
+        })
+      } else {
+        this.setState({
+          data: this.state.data
+            .sort((a, b) => {
+              let nameB = b.nombre.toUpperCase()
+              let nameA = a.nombre.toUpperCase()
+              if (nameA > nameB) {
+                return -1
+              }
+              if (nameA < nameB) {
+                return 1
+              }
+              return 0
+            }),
+          reverse: true
+        })
+      }
+
+    } else if (className === 'apellido') {
+
+      
+      if (this.state.reverse) {
+        this.setState({
+          data: this.state.data
+            .sort((a, b) => {
+              let nameB = b.apellido.toUpperCase()
+              let nameA = a.apellido.toUpperCase()
+              if (nameA < nameB) {
+                return -1
+              }
+              if (nameA > nameB) {
+                return 1
+              }
+              return 0
+            }),
+          reverse: false
+        })
+      } else {
+        this.setState({
+          data: this.state.data
+            .sort((a, b) => {
+              let nameB = b.apellido.toUpperCase()
+              let nameA = a.apellido.toUpperCase()
+              if (nameA > nameB) {
+                return -1
+              }
+              if (nameA < nameB) {
+                return 1
+              }
+              return 0
+            }),
+          reverse: true
+        })
+      }
+
+    } else if (className === 'contraseña') {
+
+      
+      if (this.state.reverse) {
+        this.setState({
+          data: this.state.data
+            .sort((a, b) => {
+              let nameB = b.contraseña.toUpperCase()
+              let nameA = a.contraseña.toUpperCase()
+              if (nameA < nameB) {
+                return -1
+              }
+              if (nameA > nameB) {
+                return 1
+              }
+              return 0
+            }),
+          reverse: false
+        })
+      } else {
+        this.setState({
+          data: this.state.data
+            .sort((a, b) => {
+              let nameB = b.contraseña.toUpperCase()
+              let nameA = a.contraseña.toUpperCase()
+              if (nameA > nameB) {
+                return -1
+              }
+              if (nameA < nameB) {
+                return 1
+              }
+              return 0
+            }),
+          reverse: true
+        })
+      }
+    } else if (className === 'email') {
+
+      
+      if (this.state.reverse) {
+        this.setState({
+          data: this.state.data
+            .sort((a, b) => {
+              let nameB = b.email.toUpperCase()
+              let nameA = a.email.toUpperCase()
+              if (nameA < nameB) {
+                return -1
+              }
+              if (nameA > nameB) {
+                return 1
+              }
+              return 0
+            }),
+          reverse: false
+        })
+      } else {
+        this.setState({
+          data: this.state.data
+            .sort((a, b) => {
+              let nameB = b.email.toUpperCase()
+              let nameA = a.email.toUpperCase()
+              if (nameA > nameB) {
+                return -1
+              }
+              if (nameA < nameB) {
+                return 1
+              }
+              return 0
+            }),
+          reverse: true
+        })
+      }
+    }
+  }
+
   render() {
-    const { data, offset } = this.state;
+    const { data, offset } = this.state
 
     let pageCero
     let pageLast
@@ -183,12 +349,12 @@ class tabla extends Component {
 
         <table className="table mt-3 table-striped table-hover table-bordered table-light shadows">
           <thead className="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Apellido</th>
-              <th scope="col">Contraseña</th>
-              <th scope="col">Email</th>
+            <tr className="cabezera">
+              <th scope="col" className="id" onClick={this.handleOrder}>#</th>
+              <th scope="col" className="name" onClick={this.handleOrder}>Nombre</th>
+              <th scope="col" className="apellido" onClick={this.handleOrder}>Apellido</th>
+              <th scope="col" className="contraseña" onClick={this.handleOrder}>Contraseña</th>
+              <th scope="col" className="email" onClick={this.handleOrder}>Email</th>
             </tr>
           </thead>
           <tbody>
@@ -244,4 +410,4 @@ class tabla extends Component {
   }
 }
 
-export default tabla;
+export default tabla
