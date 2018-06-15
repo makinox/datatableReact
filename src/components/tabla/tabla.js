@@ -113,9 +113,14 @@ class tabla extends Component {
       if (((value * 10) - 10) === this.state.offset) {
         console.log('No hacer nada porque ya esta cacheado :)')
       } else {
-        console.log('LLamando a la nueva')
-
         this.fetchData(this.state.api, this.state.limit, ((value * 10) - 10))
+      }
+
+    } else if (name === 'orden') {
+      if (value === 'nuevo'){
+        this.fetchData('usersNDESC', this.state.limit, this.state.offset)
+      } else {
+        this.fetchData('users', this.state.limit, this.state.offset)
       }
     }
   }
@@ -157,6 +162,15 @@ class tabla extends Component {
               </div>
             </div>
 
+            <div className="col col-4 col-md-3">
+              <div className="form-group">
+                <select name="orden" className="form-control shadows" onChange={this.handleInput}>
+                  <option value="viejo">Más viejo</option>
+                  <option value="nuevo">Más nuevo</option>
+                </select>
+              </div>
+            </div>
+
             <div className="col col-5">
               <div className="input-group shadows">
                 <InputGroupAddon addonType="prepend"><Button>Buscar</Button></InputGroupAddon>
@@ -194,7 +208,7 @@ class tabla extends Component {
           </tbody>
         </table>
 
-        <div className="row">
+        <div className="row justify-content-center justify-content-lg-start">
           <div className="ml-3">
             <Pagination aria-label="Page navigation example" className="shadows">
 
@@ -221,7 +235,7 @@ class tabla extends Component {
               <PaginationItem>
                 <a className="page-link" name="siguiente" value="0" onClick={this.handleInput}>Siguiente</a>
               </PaginationItem>
-              
+
             </Pagination>
           </div>
         </div>
