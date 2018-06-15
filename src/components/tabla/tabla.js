@@ -72,26 +72,36 @@ class tabla extends Component {
     console.log(value)
     console.log(e.target)
     console.log(name)
-    // console.log(e.target.html)
+    
+    // Si se clicko limite sus valores son 10, 25, 50
     if (name === 'limite') {
       this.fetchData(this.state.api, e.target.value, this.state.offset)
+      
+      // Si se entro a buscar y se entro una letra
     } else if (name === 'buscar') {
-      console.log('buscando')
+
+      //Si hay algún valor en el campo de texto
       if (value) {
         this.fetchData('usersSEARCH', this.state.limit, this.state.offset, `&search=${value}`)
+
+        //Si se modifico el campo pero no hay ningún valor disponible en el campo 
       } else {
         this.fetchData('users', this.state.limit, this.state.offset)
       }
+
+      // Si se clicka en el boton (Anterior)
     } else if (name === 'anterior') {
-      // console.log('Paginando')
+      
+      // Si hay registros anteriores en la pagina dada y su valor es mayor a cero
       if (this.state.offset > 1 && (parseInt(this.state.offset, 10) - parseInt(this.state.limit, 10)) > 0) {
-        console.log(this.state.offset)
-        console.log((parseInt(this.state.offset, 10) - parseInt(this.state.limit, 10)))
         this.fetchData(this.state.api, this.state.limit, (parseInt(this.state.offset, 10) - parseInt(this.state.limit, 10)))
+
+        // Si el valor de la paginacion es menor o igual a cero
       } else {
         this.fetchData(this.state.api, this.state.limit, (0))
       }
       
+      //Si se clicka en el boton (siguiente)
     } else if (name === 'siguiente') {
       this.fetchData(this.state.api, this.state.limit, (parseInt(this.state.offset, 10) + parseInt(this.state.limit, 10)))
     }
